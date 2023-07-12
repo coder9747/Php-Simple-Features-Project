@@ -4,23 +4,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $sql = "select * from `user` where email = '$email'";
-    $result = mysqli_query($con,$sql) or die(mysqli_error($con));
-    if(mysqli_num_rows($result))
-    {
+    $result = mysqli_query($con, $sql) or die(mysqli_error($con));
+    if (mysqli_num_rows($result)) {
         $row = mysqli_fetch_assoc($result);
-        if($password==$row["password"])
-        {
+        if ($password == $row["password"]) {
             session_start();
-            $_SESSION["id"] = $row["id"];     
-            header("location:index.php")  ;
-         }
-        else
-        {
+            $_SESSION["id"] = $row["id"];
+            $_SESSION["name"] = $row["name"];
+            header("location:index.php");
+        } else {
             echo "Incorrect Password";
         }
-    }
-    else
-    {
+    } else {
         echo "Email Not registered";
     }
 }
@@ -71,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label class="form-label" for="form3Example4">Password</label>
                     </div>
 
-                    
+
 
                     <div class="text-center text-lg-start mt-4 pt-2">
                         <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
